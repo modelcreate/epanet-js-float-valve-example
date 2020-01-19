@@ -42,7 +42,7 @@ const App: React.FC = () => {
         <p>Model Ran in: {timeToRun.toFixed(0)}ms</p>
       </header>
       <p>
-        This is a work in progress demo of getting a float valve with continious
+        This is a work in progress demo of getting a float valve with continuous
         regulation working in epanet-js.
       </p>
 
