@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/epanet-js-float-valve-example/static/css/main.52871052.chunk.css",
+    "main.js": "/epanet-js-float-valve-example/static/js/main.4eb56121.chunk.js",
+    "main.js.map": "/epanet-js-float-valve-example/static/js/main.4eb56121.chunk.js.map",
+    "runtime-main.js": "/epanet-js-float-valve-example/static/js/runtime-main.625b67e2.js",
+    "runtime-main.js.map": "/epanet-js-float-valve-example/static/js/runtime-main.625b67e2.js.map",
+    "static/js/2.0424c49a.chunk.js": "/epanet-js-float-valve-example/static/js/2.0424c49a.chunk.js",
+    "static/js/2.0424c49a.chunk.js.map": "/epanet-js-float-valve-example/static/js/2.0424c49a.chunk.js.map",
+    "index.html": "/epanet-js-float-valve-example/index.html",
+    "precache-manifest.aaffd1220cbf8cff80fe7436a1527c84.js": "/epanet-js-float-valve-example/precache-manifest.aaffd1220cbf8cff80fe7436a1527c84.js",
+    "service-worker.js": "/epanet-js-float-valve-example/service-worker.js",
+    "static/css/main.52871052.chunk.css.map": "/epanet-js-float-valve-example/static/css/main.52871052.chunk.css.map",
+    "static/js/2.0424c49a.chunk.js.LICENSE": "/epanet-js-float-valve-example/static/js/2.0424c49a.chunk.js.LICENSE"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.625b67e2.js",
+    "static/js/2.0424c49a.chunk.js",
+    "static/css/main.52871052.chunk.css",
+    "static/js/main.4eb56121.chunk.js"
+  ]
+}
