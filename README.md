@@ -1,4 +1,12 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## Float Valve Example For epanet-js
+
+<a href="https://modelcreate.github.io/epanet-js-float-valve-example/"><p align="center"><img src="https://raw.githubusercontent.com/modelcreate/epanet-js-float-valve-example/master/MainScreenshot.png" alt="placeholder" height="300"/></p></a>
+
+<a href="https://modelcreate.github.io/epanet-js-float-valve-example/">Run Demo</a>
+
+
+Learn more about [epanet-js here](https://github.com/modelcreate/epanet-js/).
 
 ## Available Scripts
 
