@@ -34,20 +34,17 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
+        <p>Float Valve in epanet-js example</p>
+        <a className="App-link" href="https://github.com/modelcreate/epanet-js">
+          Learn more about epanet-js
         </a>
 
         <p>Model Ran in: {timeToRun.toFixed(0)}ms</p>
       </header>
+      <p>
+        This is a work in progress demo of getting a float valve with continious
+        regulation working in epanet-js.
+      </p>
 
       <div>
         <label htmlFor="depth">Depth: {depth}</label>
@@ -77,7 +74,11 @@ const App: React.FC = () => {
         />
       </div>
 
-      <SimpleChart xLabel="Test" yLabel="Test" data={tankLevelData} />
+      <SimpleChart
+        xLabel="Time (hours)"
+        yLabel="Depth (m)"
+        data={tankLevelData}
+      />
     </div>
   );
 };
