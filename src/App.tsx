@@ -1,16 +1,11 @@
-import React from "react";
-import logo from "./logo.svg";
+import React, { useState, ChangeEvent } from "react";
 import "./App.css";
-import {
-  Project,
-  Workspace,
-  InitHydOption,
-  NodeProperty,
-  LinkProperty
-} from "epanet-js";
+import { Project, Workspace } from "epanet-js";
+
+import SimpleChart from "./components/SimpleChart";
 
 import { baseNetwork } from "./utils/baseNetwork";
-import getValveKValue from "./utils/floatValves";
+import runModel from "./utils/runModel";
 
 const ws = new Workspace();
 const model = new Project(ws);
@@ -18,33 +13,27 @@ const model = new Project(ws);
 ws.writeFile("net1.inp", baseNetwork);
 model.open("net1.inp", "report.rpt", "out.bin");
 
-model.openH();
-model.initH(InitHydOption.NoSave);
-
-const nodeIndex = model.getNodeIndex("Tank");
-const linkIndex = model.getLinkIndex("Res.1");
-
-let tStep = Infinity;
-do {
-  const tankLevel = model.getNodeValue(nodeIndex, NodeProperty.Pressure);
-  const k = getValveKValue(2.485, 0.87, tankLevel, 2);
-  model.setLinkValue(linkIndex, LinkProperty.Setting, k);
-
-  const time = model.runH();
-  const flow = model.getLinkValue(linkIndex, LinkProperty.Flow);
-
-  console.log(`${time} - ${tankLevel}-  ${k} -  ${flow}`);
-
-  tStep = model.nextH();
-} while (tStep > 0);
-
-model.closeH();
-
 const App: React.FC = () => {
+  const [range, setRange] = useState(1);
+  const [depth, setDepth] = useState(2.5);
+
+  const handleRangeChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setRange(Number(e.target.value));
+  };
+
+  const handleDepthChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setDepth(Number(e.target.value));
+  };
+
+  const t0 = performance.now();
+  const tankLevelData = runModel(model, depth, range, 2);
+  const t1 = performance.now();
+
+  const timeToRun = t1 - t0;
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
@@ -56,7 +45,39 @@ const App: React.FC = () => {
         >
           Learn React
         </a>
+
+        <p>Model Ran in: {timeToRun.toFixed(0)}ms</p>
       </header>
+
+      <div>
+        <label htmlFor="depth">Depth: {depth}</label>
+        <input
+          type="range"
+          id="depth"
+          name="depth"
+          min="1.5"
+          max="3.4"
+          step={0.01}
+          onChange={handleDepthChange}
+          value={depth}
+        />
+      </div>
+
+      <div>
+        <label htmlFor="regRange">Regulation Range: {range}</label>
+        <input
+          type="range"
+          id="regRange"
+          name="regRange"
+          min="0.1"
+          max="1"
+          step={0.01}
+          onChange={handleRangeChange}
+          value={range}
+        />
+      </div>
+
+      <SimpleChart xLabel="Test" yLabel="Test" data={tankLevelData} />
     </div>
   );
 };
