@@ -1,11 +1,10 @@
 import React, { useState, ChangeEvent } from "react";
-import "./App.css";
 import { Project, Workspace } from "epanet-js";
 
-import SimpleChart from "./components/SimpleChart";
+import SimpleChart from "../SimpleChart";
 
-import { baseNetwork } from "./utils/baseNetwork";
-import runModel from "./utils/runModel";
+import { baseNetwork } from "../../utils/baseNetwork";
+import runModel from "../../utils/runModel";
 
 const ws = new Workspace();
 const model = new Project(ws);
