@@ -1,83 +1,137 @@
-import React, { useState, ChangeEvent } from "react";
-import { Project, Workspace } from "epanet-js";
+import React, { FunctionComponent } from "react";
+import clsx from "clsx";
+import { makeStyles } from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Box from "@material-ui/core/Box";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import IconButton from "@material-ui/core/IconButton";
+import Badge from "@material-ui/core/Badge";
+import Container from "@material-ui/core/Container";
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
+import Link from "@material-ui/core/Link";
+import GitHubIcon from "@material-ui/icons/GitHub";
+import NotificationsIcon from "@material-ui/icons/Notifications";
+import ResultsTable from "../ResultsTable";
 
-import SimpleChart from "../SimpleChart";
+import TankSimulation from "../TankSimulation";
 
-import { baseNetwork } from "../../utils/baseNetwork";
-import runModel from "../../utils/runModel";
+function Copyright() {
+  return (
+    <Typography variant="body2" color="textSecondary" align="center">
+      {"Copyright © "}
+      <Link color="inherit" href="https://material-ui.com/">
+        Your Website
+      </Link>{" "}
+      {new Date().getFullYear()}
+      {"."}
+    </Typography>
+  );
+}
 
-const ws = new Workspace();
-const model = new Project(ws);
+const useStyles = makeStyles(theme => ({
+  root: {
+    display: "flex"
+  },
+  toolbar: {
+    paddingRight: 24 // keep right padding when drawer closed
+  },
+  toolbarIcon: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-end",
+    padding: "0 8px",
+    ...theme.mixins.toolbar
+  },
+  appBar: {
+    zIndex: theme.zIndex.drawer + 1,
+    transition: theme.transitions.create(["width", "margin"], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen
+    })
+  },
+  menuButton: {
+    marginRight: 36
+  },
+  menuButtonHidden: {
+    display: "none"
+  },
+  title: {
+    flexGrow: 1
+  },
+  appBarSpacer: theme.mixins.toolbar,
+  content: {
+    flexGrow: 1,
+    height: "100vh",
+    overflow: "auto"
+  },
+  container: {
+    paddingTop: theme.spacing(4),
+    paddingBottom: theme.spacing(4)
+  },
+  paper: {
+    padding: theme.spacing(2),
+    display: "flex",
+    overflow: "auto",
+    flexDirection: "column"
+  },
+  fixedHeight: {
+    height: 240
+  }
+}));
 
-ws.writeFile("net1.inp", baseNetwork);
-model.open("net1.inp", "report.rpt", "out.bin");
+const App: FunctionComponent = () => {
+  const classes = useStyles();
 
-const App: React.FC = () => {
-  const [range, setRange] = useState(1);
-  const [depth, setDepth] = useState(2.5);
-
-  const handleRangeChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setRange(Number(e.target.value));
-  };
-
-  const handleDepthChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setDepth(Number(e.target.value));
-  };
-
-  const t0 = performance.now();
-  const tankLevelData = runModel(model, depth, range, 2);
-  const t1 = performance.now();
-
-  const timeToRun = t1 - t0;
+  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>Float Valve in epanet-js example</p>
-        <a className="App-link" href="https://github.com/modelcreate/epanet-js">
-          Learn more about epanet-js
-        </a>
-
-        <p>Model Ran in: {timeToRun.toFixed(0)}ms</p>
-      </header>
-      <p>
-        This is a work in progress demo of getting a float valve with continuous
-        regulation working in epanet-js.
-      </p>
-
-      <div>
-        <label htmlFor="depth">Depth: {depth}</label>
-        <input
-          type="range"
-          id="depth"
-          name="depth"
-          min="1.5"
-          max="3.4"
-          step={0.01}
-          onChange={handleDepthChange}
-          value={depth}
-        />
-      </div>
-
-      <div>
-        <label htmlFor="regRange">Regulation Range: {range}</label>
-        <input
-          type="range"
-          id="regRange"
-          name="regRange"
-          min="0.1"
-          max="1"
-          step={0.01}
-          onChange={handleRangeChange}
-          value={range}
-        />
-      </div>
-
-      <SimpleChart
-        xLabel="Time (hours)"
-        yLabel="Depth (m)"
-        data={tankLevelData}
-      />
+    <div className={classes.root}>
+      <CssBaseline />
+      <AppBar position="absolute" className={classes.appBar}>
+        <Toolbar className={classes.toolbar}>
+          <Typography
+            component="h1"
+            variant="h6"
+            color="inherit"
+            noWrap
+            className={classes.title}
+          >
+            Float Valve Calibration
+          </Typography>
+          <IconButton color="inherit">
+            <GitHubIcon />
+          </IconButton>
+        </Toolbar>
+      </AppBar>
+      <main className={classes.content}>
+        <div className={classes.appBarSpacer} />
+        <Container maxWidth="lg" className={classes.container}>
+          <Grid container spacing={3}>
+            {/* Chart */}
+            <Grid item xs={12} md={8} lg={9}>
+              <Paper className={fixedHeightPaper}>
+                <TankSimulation />
+              </Paper>
+            </Grid>
+            {/* Recent Deposits */}
+            <Grid item xs={12} md={4} lg={3}>
+              <Paper className={fixedHeightPaper}>{/* <Deposits /> */}</Paper>
+            </Grid>
+            {/* Recent Orders */}
+            <Grid item xs={12}>
+              <Paper className={classes.paper}>
+                <ResultsTable />
+              </Paper>
+            </Grid>
+          </Grid>
+          <Box pt={4}>
+            <Copyright />
+          </Box>
+        </Container>
+      </main>
     </div>
   );
 };
