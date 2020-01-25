@@ -7,17 +7,16 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
-import Badge from "@material-ui/core/Badge";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Link from "@material-ui/core/Link";
 import GitHubIcon from "@material-ui/icons/GitHub";
-import NotificationsIcon from "@material-ui/icons/Notifications";
 import ResultsTable from "../ResultsTable";
 
 import TankSimulation from "../TankSimulation";
 
+//https://github.com/mui-org/material-ui/tree/master/docs/src/pages/getting-started/templates/dashboard
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -111,13 +110,13 @@ const App: FunctionComponent = () => {
         <Container maxWidth="lg" className={classes.container}>
           <Grid container spacing={3}>
             {/* Chart */}
-            <Grid item xs={12} md={8} lg={9}>
+            <Grid item xs={12} md={7} lg={8}>
               <Paper className={fixedHeightPaper}>
                 <TankSimulation />
               </Paper>
             </Grid>
             {/* Recent Deposits */}
-            <Grid item xs={12} md={4} lg={3}>
+            <Grid item xs={12} md={5} lg={4}>
               <Paper className={fixedHeightPaper}>{/* <Deposits /> */}</Paper>
             </Grid>
             {/* Recent Orders */}
