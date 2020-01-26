@@ -73,7 +73,7 @@ const ResultsTable: FunctionComponent = () => {
   const classes = useStyles();
   return (
     <React.Fragment>
-      <Title>Recent Orders</Title>
+      <Title>Tank Calculations (Float Valve)</Title>
       <Table size="small">
         <TableHead>
           <TableRow>

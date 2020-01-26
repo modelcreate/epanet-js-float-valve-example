@@ -15,6 +15,9 @@ import GitHubIcon from "@material-ui/icons/GitHub";
 import ResultsTable from "../ResultsTable";
 
 import TankSimulation from "../TankSimulation";
+import SimpleChart from "../SimpleChart";
+import Title from "../Title";
+import Settings from "../Settings";
 
 //https://github.com/mui-org/material-ui/tree/master/docs/src/pages/getting-started/templates/dashboard
 function Copyright() {
@@ -110,14 +113,36 @@ const App: FunctionComponent = () => {
         <Container maxWidth="lg" className={classes.container}>
           <Grid container spacing={3}>
             {/* Chart */}
-            <Grid item xs={12} md={7} lg={8}>
+            <Grid item xs={12} md={7}>
               <Paper className={fixedHeightPaper}>
                 <TankSimulation />
               </Paper>
             </Grid>
             {/* Recent Deposits */}
-            <Grid item xs={12} md={5} lg={4}>
-              <Paper className={fixedHeightPaper}>{/* <Deposits /> */}</Paper>
+            <Grid item xs={12} md={5}>
+              <Paper className={fixedHeightPaper}>
+                <Settings maxDepth={1} />
+              </Paper>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Paper className={classes.paper}>
+                <Title>Depth Comparison</Title>
+                <SimpleChart
+                  xLabel="Time (hours)"
+                  yLabel="Depth (m)"
+                  data={[{ x: 0, y: 1 }]}
+                />
+              </Paper>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Paper className={classes.paper}>
+                <Title>Inflow Comparison</Title>
+                <SimpleChart
+                  xLabel="Time (hours)"
+                  yLabel="Depth (m)"
+                  data={[{ x: 0, y: 1 }]}
+                />
+              </Paper>
             </Grid>
             {/* Recent Orders */}
             <Grid item xs={12}>

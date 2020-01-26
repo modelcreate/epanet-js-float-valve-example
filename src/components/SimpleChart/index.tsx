@@ -120,6 +120,7 @@ const SmallChart: FunctionComponent<SmallChartProperties> = ({
     x: timestep.x,
     y: observered[i]
   }));
+  console.log(data);
   return (
     <VictoryChart theme={VictoryTheme.material} height={175} width={400}>
       <VictoryAxis
